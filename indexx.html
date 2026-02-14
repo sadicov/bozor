@@ -1,4 +1,3 @@
-🫀, [14.02.2026 19:55]
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +14,7 @@ body{
 }
 .app{width:1050px;max-width:95%;display:flex;gap:30px;}
 
+/* VIEW */
 .viewer{
     flex:1;background:#1c1c1c;border-radius:20px;
     display:flex;justify-content:center;align-items:center;
@@ -34,6 +34,7 @@ body{
 .wheel.left{left:290px;}
 .wheel.right{left:390px;}
 
+/* CONTROLS */
 .controls{
     width:340px;background:#1a1a1a;
     border-radius:20px;padding:25px;
@@ -61,16 +62,15 @@ button{
 
 <div class="app">
 
-VIEW
+<!-- VIEW -->
 <div class="viewer" id="viewer">
-    <img id="car" class="car"
-    src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Porsche_911_GT3_RS_%28991.2%29_IMG_3354.jpg">
+    <img id="car" class="car" src="A_2D_digital_screenshot_of_a_car_configurator_web_.png">
     <div class="spoiler" id="spoiler"></div>
     <div class="wheel left" id="wheelL"></div>
     <div class="wheel right" id="wheelR"></div>
 </div>
 
-CONTROLS
+<!-- CONTROLS -->
 <div class="controls">
     <h2>Porsche 911</h2>
 
@@ -142,19 +142,16 @@ function setColor(filter,price){
 function setWheels(color,price){
     wheelL.style.background=color;
     wheelR.style.background=color;
-    total+=price;
+    total=basePrice+price;
     updatePrice();
 }
 
 /* WINDOWS */
 function setWindows(price){
     car.style.opacity=price?0.85:1;
-    total+=price;
+    total=basePrice+price;
     updatePrice();
 }
-
-🫀, [14.02.2026 19:55]
-/* SPOILER */
 function toggleSpoiler(){
     if(spoiler.style.display==="block"){
         spoiler.style.display="none";
@@ -166,7 +163,6 @@ function toggleSpoiler(){
     updatePrice();
 }
 
-/* NEON */
 function toggleNeon(){
     if(viewer.style.boxShadow){
         viewer.style.boxShadow="";
