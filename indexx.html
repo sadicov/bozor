@@ -1,0 +1,185 @@
+🫀, [14.02.2026 19:55]
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Car Configurator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+body{
+    background:#111;color:#fff;
+    min-height:100vh;
+    display:flex;justify-content:center;align-items:center;
+}
+.app{width:1050px;max-width:95%;display:flex;gap:30px;}
+
+.viewer{
+    flex:1;background:#1c1c1c;border-radius:20px;
+    display:flex;justify-content:center;align-items:center;
+    position:relative;overflow:hidden;
+}
+.car{
+    width:420px;cursor:grab;transition:.3s;
+}
+.spoiler{
+    position:absolute;top:120px;width:160px;height:20px;
+    background:black;border-radius:10px;display:none;
+}
+.wheel{
+    position:absolute;bottom:80px;width:45px;height:45px;
+    background:silver;border-radius:50%;
+}
+.wheel.left{left:290px;}
+.wheel.right{left:390px;}
+
+.controls{
+    width:340px;background:#1a1a1a;
+    border-radius:20px;padding:25px;
+}
+.controls h2{margin-bottom:15px;}
+.section{margin-bottom:20px;}
+.colors{display:flex;gap:10px;}
+.color{
+    width:25px;height:25px;border-radius:50%;
+    cursor:pointer;border:2px solid white;
+}
+button{
+    width:100%;padding:10px;margin-top:8px;
+    background:#ff4d00;border:none;border-radius:10px;
+    color:white;font-size:15px;cursor:pointer;
+}
+.price{
+    font-size:22px;font-weight:bold;
+    background:#000;padding:12px;border-radius:10px;
+    text-align:center;
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+VIEW
+<div class="viewer" id="viewer">
+    <img id="car" class="car"
+    src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Porsche_911_GT3_RS_%28991.2%29_IMG_3354.jpg">
+    <div class="spoiler" id="spoiler"></div>
+    <div class="wheel left" id="wheelL"></div>
+    <div class="wheel right" id="wheelR"></div>
+</div>
+
+CONTROLS
+<div class="controls">
+    <h2>Porsche 911</h2>
+
+    <div class="section">
+        <b>🎨 Rang</b>
+        <div class="colors">
+            <div class="color" style="background:red" onclick="setColor('hue-rotate(0deg)',0)"></div>
+            <div class="color" style="background:blue" onclick="setColor('hue-rotate(200deg)',500)"></div>
+            <div class="color" style="background:black" onclick="setColor('grayscale(100%)',700)"></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <b>🛞 Disk</b>
+        <button onclick="setWheels('silver',0)">Oddiy disk</button>
+        <button onclick="setWheels('black',1200)">Sport disk</button>
+    </div>
+
+    <div class="section">
+        <b>🪟 Oyna</b>
+        <button onclick="setWindows(0)">Oddiy</button>
+        <button onclick="setWindows(800)">Qora tint</button>
+    </div>
+
+    <div class="section">
+        <b>🧩 Qo‘shimcha</b>
+        <button onclick="toggleSpoiler()">Spoiler (+1500)</button>
+        <button onclick="toggleNeon()">Neon (+600)</button>
+    </div>
+
+    <div class="price" id="price">$80,000</div>
+</div>
+
+</div>
+
+<script>
+const car=document.getElementById("car");
+const viewer=document.getElementById("viewer");
+const spoiler=document.getElementById("spoiler");
+const wheelL=document.getElementById("wheelL");
+const wheelR=document.getElementById("wheelR");
+const priceBox=document.getElementById("price");
+
+let basePrice=80000;
+let total=basePrice;
+let rotate=0,isDown=false;
+
+function updatePrice(){
+    priceBox.innerText="$"+total.toLocaleString();
+}
+
+/* ROTATE */
+viewer.addEventListener("mousedown",()=>isDown=true);
+window.addEventListener("mouseup",()=>isDown=false);
+viewer.addEventListener("mousemove",(e)=>{
+    if(!isDown)return;
+    rotate+=e.movementX;
+    car.style.transform=rotateY(${rotate}deg);
+});
+
+/* COLOR */
+function setColor(filter,price){
+    car.style.filter=filter;
+    total=basePrice+price;
+    updatePrice();
+}
+
+/* WHEELS */
+function setWheels(color,price){
+    wheelL.style.background=color;
+    wheelR.style.background=color;
+    total+=price;
+    updatePrice();
+}
+
+/* WINDOWS */
+function setWindows(price){
+    car.style.opacity=price?0.85:1;
+    total+=price;
+    updatePrice();
+}
+
+🫀, [14.02.2026 19:55]
+/* SPOILER */
+function toggleSpoiler(){
+    if(spoiler.style.display==="block"){
+        spoiler.style.display="none";
+        total-=1500;
+    }else{
+        spoiler.style.display="block";
+        total+=1500;
+    }
+    updatePrice();
+}
+
+/* NEON */
+function toggleNeon(){
+    if(viewer.style.boxShadow){
+        viewer.style.boxShadow="";
+        total-=600;
+    }else{
+        viewer.style.boxShadow="0 0 40px #ff4d00";
+        total+=600;
+    }
+    updatePrice();
+}
+
+updatePrice();
+</script>
+
+</body>
+</html>
